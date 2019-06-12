@@ -6,7 +6,6 @@ app.use(morgan('common'));
 
 const playstore = require('./playstore.js');
 const fullGenres = ['Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card'];
-exports.fullGenres = fullGenres;
 
 app.get('/apps', (req, res) => {
     const { sort, genre } = req.query;
