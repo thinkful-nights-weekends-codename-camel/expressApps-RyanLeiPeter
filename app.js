@@ -5,6 +5,8 @@ const app = express();
 app.use(morgan('common'));
 
 const playstore = require('./playstore.js');
+const fullGenres = ['Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card'];
+exports.fullGenres = fullGenres;
 
 app.get('/apps', (req, res) => {
     const { sort, genre } = req.query;
@@ -27,8 +29,8 @@ app.get('/apps', (req, res) => {
     if(genre) {     // validation for genre filter
         // console.log(lowerCaseGenre);
         let lcGenre = req.query.genre.toLowerCase();
-        const allGenres = ['Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card'].map(     word  => word.toLowerCase());
-        if(!allGenres.includes(lcGenre)) {
+        fullGenres.map(word  => word.toLowerCase());
+        if(!fullGenres.includes(lcGenre)) {
             return res 
                 .status(400)
                 .send('Genre must be one of Action, Puzzle, Strategy, Casual, Arcade, or Card');
@@ -50,6 +52,4 @@ app.get('/apps', (req, res) => {
     res.json(results);
 });
 
-app.listen(8000, () => {
-    console.log('Server started on PORT 8000');
-});
+module.exports = app;
